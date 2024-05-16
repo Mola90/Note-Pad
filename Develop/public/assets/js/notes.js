@@ -1,9 +1,12 @@
+
+
 let noteForm;
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let listgroup;
 
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
@@ -13,6 +16,7 @@ if (window.location.pathname === '/notes') {
   newNoteBtn = document.querySelector('.new-note');
   clearBtn = document.querySelector('.clear-btn');
   noteList = document.querySelectorAll('.list-container .list-group');
+
 }
 
 // Show an element
@@ -25,6 +29,7 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
+
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
@@ -34,7 +39,9 @@ const getNotes = () =>
     headers: {
       'Content-Type': 'application/json'
     }
-  });
+  })
+
+
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -144,9 +151,10 @@ const renderNoteList = async (notes) => {
     const spanEl = document.createElement('span');
     spanEl.classList.add('list-item-title');
     spanEl.innerText = text;
-    spanEl.addEventListener('click', handleNoteView);
-
     liEl.append(spanEl);
+    liEl.addEventListener('click', handleNoteView);
+
+    
 
     if (delBtn) {
       const delBtnEl = document.createElement('i');
@@ -157,7 +165,7 @@ const renderNoteList = async (notes) => {
         'text-danger',
         'delete-note'
       );
-      delBtnEl.addEventListener('click', handleNoteDelete);
+      // delBtnEl.addEventListener('click', handleNoteDelete);
 
       liEl.append(delBtnEl);
     }
